@@ -1,0 +1,80 @@
+﻿<div class="container m-t-2">
+    <div class="col-sm-8 col-md-5 m-x-auto">
+        <div class="panel panel-default ">
+            <form name="signInForm" data-ng-submit="sic.signIn(credentials)" novalidate>
+                <div class="panel-body">
+                    <img class="sign-in-logo center-block" src="Content/Images/logo-login.png" alt="Hawkes Learning">
+                    <h1 class="text-center"> Hawkes Teach</h1>
+                    <br />
+                    <div class="has-error">
+                        <div class="help-block">
+                            <div data-ng-messages="signInForm.Email.$error"
+                                 data-ng-show="signInForm.Email.$invalid && (signInForm.Email.$touched || signInForm.$submitted)">
+                                <div id="emailRequiredValidation" data-ng-message="required">The Email Address field is required.</div>
+                                <div id="emailPatternValidation" data-ng-message="email">Email Address is invalid.</div>
+                            </div>
+
+                            <div data-ng-messages="signInForm.Password.$error"
+                                 data-ng-show="signInForm.Password.$invalid && (signInForm.Password.$touched || signInForm.$submitted)">
+                                <div id="passwordRequiredValidation" data-ng-message="required">The Password field is required.</div>
+                            </div>
+
+                            <div data-ng-messages="sic.isThereAServerError"
+                                 data-ng-show="sic.isThereAServerError">
+                                <div id="serverValidation-{{key}}" data-ng-repeat="(key, valueArray) in sic.ModelState">
+                                    <div data-ng-repeat="error in valueArray">
+                                        {{error}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="has-feedback">
+                            <input type="email"
+                                   name="Email"
+                                   class="form-control input-lg"
+                                   placeholder="Email"
+                                   id="emailAddress"
+                                   data-ng-model="credentials.Email"
+                                   required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="has-feedback">
+                            <input type="password"
+                                   name="Password"
+                                   class="form-control input-lg"
+                                   placeholder="Password"
+                                   id="password"
+                                   data-ng-model="credentials.Password"
+                                   required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button id="signIn" type="submit" class="btn btn-primary btn-block btn-lg">
+                            Sign In
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <a id="forgotPasswordLink" href="account/forgot">Forgot Password?</a>
+
+                        <hr>
+                        <p>
+                            <b>
+                                Don't have an account?
+                            </b>
+                                Ask Santa
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

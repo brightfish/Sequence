@@ -1,0 +1,27 @@
+﻿<div class="container m-t-2">
+    <div class="col-sm-8 col-md-5 m-x-auto" ng-init="fc.checkEmail()">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <img class="sign-in-logo center-block" src="Content/Images/logo-login.png" alt="Hawkes Learning">
+            <h1 class="text-center">Check Your Email!</h1>
+            <p>To get back into your account, please follow the instructions we've sent you.</p>
+            <div class="form-group form-group-lg">
+                <input id="checkEmail" type="text" class="form-control" value="{{fc.User.Reset.Email}}" readonly />
+            </div>
+            <div class="alert alert-info text-center">
+                <div>Don't have access to your email? </div>
+                <a id="checkEmailAnswerSecurityQuestions" href="account/forgot/questions">Answer Security Questions</a>
+            </div>
+            <div class="text-center">
+                <a id="checkEmailReturnToSignIn" href="account/signin" class="btn btn-default">Return to Sign In</a>
+            </div>
+            <hr>
+            <p class="text-center">
+                <b>Need help?</b>
+                Call (843) 571-2825 or
+                <a id="checkEmailLiveChat" href="javascript:void(window.open('https://secure.livechatinc.com/licence/5206491/open_chat.cgi','','width=495,height=345,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">Live Chat 24/7</a>
+            </p>
+        </div>
+    </div>
+</div>
+</div>

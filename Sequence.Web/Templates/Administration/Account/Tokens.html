@@ -1,0 +1,49 @@
+﻿<div class="page-header">
+    <div class="container">
+        <h1>Manage Tokens</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <input id="instructorId" type="text" name="Instructor" data-ng-model="instructor" class="form-control" placeholder="Instructor Id" />
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button id="addButton" class="btn btn-default pull-right" data-ng-click="tc.add(instructor)">Add</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="panel panel-default">
+        <table class="table">
+            <tbody>
+                <tr data-ng-if="!tc.Tokens.length">
+                    <td colspan="5">
+                        There are no tokens present.
+                    </td>
+                </tr>
+                <tr data-ng-repeat="(courseLink, token) in tc.Tokens">
+                    <td>
+                        {{token.Id}}
+                    </td>
+                    <td>
+                        {{token.Expiration}}
+                    </td>
+                    <td>
+                        {{token.Instructor}}
+                    </td>
+                    <td>
+                        <a id="courseLink-{{courseLink}}" ng-href="account/link/existing/{{token.Value | encode}}">Link</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning pull-right" data-ng-click="tc.remove(token.Id)">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

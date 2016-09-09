@@ -1,0 +1,41 @@
+﻿<div class="container m-t-2">
+    <div class="col-sm-8 col-md-5 m-x-auto">
+        <div class="panel panel-default ">
+            <div class="panel-body">
+                <img class="sign-in-logo center-block" src="Content/Images/logo-login.png" alt="Hawkes Learning">
+                <h1 class="text-center">Password Reset</h1>
+                <p>To reset your password, please provide the email you used to sign in to Hawkes Learning.</p>
+                <form name="form" ng-submit="fc.sendResetPasswordEmail(email)" novalidate>
+                    <div class="has-error">
+                        <div ng-messages="form.Email.$error" class="form-group help-block "
+                             ng-show="form.Email.$invalid && (form.Email.$touched || form.$submitted)">
+                            <div id="emailRequiredValidation" ng-message="required">Email is required.</div>
+                            <div id="emailPatternValidation" ng-message="email">Please enter a valid email address.</div>
+                            <div id="emailServerValidation" ng-message="server" ng-repeat="error in fc.ModelState['Email']">{{error}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <div class="has-feedback">
+                            <input type="email" id="emailAddress" name="Email" placeholder="Email" class="form-control" ng-model="email" required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" id="enterEmailSubmit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                    </div>
+                    <div class="form-group text-center">
+                        <a href="account/signin" id="enterEmailReturnToSignIn" class="btn btn-default">Return to Sign In</a>
+                    </div>
+                </form>
+                <hr>
+                <p class="text-center">
+                    <b>Need help?</b>
+                    Call (843) 571-2825 or
+                    <a id="enterEmailLiveChat" href="javascript:void(window.open('https://secure.livechatinc.com/licence/5206491/open_chat.cgi','','width=495,height=345,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">Live Chat 24/7</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

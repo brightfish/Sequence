@@ -1,0 +1,233 @@
+﻿<div class="page-header">
+    <div class="container">
+        <h1>Instructor Account Registration</h1>
+    </div>
+</div>
+<div class="container">
+    <form name="createAccountForm" data-ng-submit="rc.register(rc.Account)" novalidate>
+        <div class="panel panel-default">
+            <div class="panel-body no-padding">
+                <table class="table">
+                    <tbody>
+                        <tr class="form-group">
+                            <th class="col-md-3">
+                                <label for="givenName">First Name:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="GivenName"
+                                       type="text"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.GivenName"
+                                       id="givenName"
+                                       required
+                                       placeholder="First Name" />
+                                <span class="fa fa-remove  ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="form-group">
+                            <th>
+                                <label for="surname">Last Name:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="Surname" type="text"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.Surname"
+                                       id="surname"
+                                       required
+                                       placeholder="Last Name">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="form-group">
+                            <th>
+                                <label for="email">Email:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="Email" type="email"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.Email"
+                                       id="email"
+                                       required
+                                       placeholder="Email">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="form-group">
+                            <th>
+                                <label for="password">Password:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="Password"
+                                       type="password"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.Password"
+                                       data-ng-pattern="/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/"
+                                       data-ng-minlength="6"
+                                       data-ng-maxlength="50"
+                                       id="password"
+                                       required
+                                       placeholder="Password">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="form-group">
+                            <th>
+                                <label for="confirmPassword">Confirm Password:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="ConfirmPassword"
+                                       type="password"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.ConfirmPassword"
+                                       data-ng-pattern="rc.Account.Password"
+                                       id="confirmPassword"
+                                       placeholder="Confirm Password"
+                                       required>
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="primarySecurityQuestion">Primary Security Question:</label>
+                            </th>
+                            <td>
+                                <select class="form-control"
+                                        name="PrimarySecurityQuestion"
+                                        id="primarySecurityQuestion"
+                                        data-ng-change="rc.primarySecurityQuestionChanged()"
+                                        data-ng-options="question.Question as question.Question for question in rc.PrimarySecurityQuestions | filter: { Selected: false }"
+                                        data-ng-model="rc.Account.PrimarySecurityQuestion"
+                                        required>
+                                    <option value="">Select a question</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="PrimarySecurityAnswer">Primary Security Answer:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="PrimarySecurityAnswer" type="text"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.PrimarySecurityAnswer"
+                                       id="primarySecurityAnswer"
+                                       placeholder=""
+                                       data-ng-minlength="6"
+                                       data-ng-maxlength="50"
+                                       required>
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="secondarySecurityQuestion">Secondary Security Question:</label>
+                            </th>
+                            <td>
+                                <select class="form-control"
+                                        name="SecondarySecurityQuestion"
+                                        id="secondarySecurityQuestion"
+                                        data-ng-change="rc.secondarySecurityQuestionChanged()"
+                                        data-ng-options="question.Question as question.Question for question in rc.SecondarySecurityQuestions | filter: { Selected: false }"
+                                        data-ng-model="rc.Account.SecondarySecurityQuestion"
+                                        required>
+                                    <option value="">Select a question</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="SecondarySecurityAnswer">Secondary Security Answer:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="SecondarySecurityAnswer" type="text"
+                                       class="form-control"
+                                       data-ng-model="rc.Account.SecondarySecurityAnswer"
+                                       id="secondarySecurityAnswer"
+                                       placeholder=""
+                                       data-ng-minlength="6"
+                                       data-ng-maxlength="50"
+                                       required>
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer clearfix has-error">
+                <div class="help-block col-md-offset-3" data-ng-show="createAccountForm.$invalid">
+                    <div data-ng-messages="createAccountForm.GivenName.$error"
+                         data-ng-show="createAccountForm.GivenName.$invalid && (createAccountForm.GivenName.$touched || createAccountForm.$submitted)">
+                        <div id="givenNameRequiredValidation" data-ng-message="required">First name is required.</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.Surname.$error"
+                         data-ng-show="createAccountForm.Surname.$invalid && (createAccountForm.Surname.$touched || createAccountForm.$submitted)">
+                        <div id="surnameRequiredValidation" data-ng-message="required">Last name is required.</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.Email.$error"
+                         data-ng-show="createAccountForm.Email.$invalid && (createAccountForm.Email.$touched || createAccountForm.$submitted)">
+                        <div id="emailRequiredValidation" data-ng-message="required">Email is required.</div>
+                        <div id="emailPatternValidation" data-ng-message="email">Please enter a valid email address.</div>
+                        <div id="emailServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.Email']">{{error}}</div>
+                        <div id="emailServerValidations" data-ng-message="server" data-ng-repeat="error in rc.ModelState['']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.Password.$error"
+                         data-ng-show="createAccountForm.Password.$invalid && (createAccountForm.Password.$touched || createAccountForm.$submitted)">
+                        <div id="passwordRequiredValidation" data-ng-message="required">Password is required.</div>
+                        <div id="passwordMinLengthValidation" data-ng-message="minlength">Password should have at least 6 characters.</div>
+                        <div id="passwordMaxLengthValidation" data-ng-message="maxlength">Password cannot exceed 50 characters.</div>
+                        <div id="passwordPatternValidation" data-ng-message="pattern">Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.</div>
+                        <div id="passwordServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.Password']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.ConfirmPassword.$error"
+                         data-ng-show="createAccountForm.ConfirmPassword.$invalid && (createAccountForm.ConfirmPassword.$touched || createAccountForm.$submitted)">
+                        <div id="confirmPasswordRequiredValidation" data-ng-message="required">Password confirmation is required.</div>
+                        <div id="confirmPasswordMatchValidation" data-ng-message="pattern">The password and confirmation password do not match.</div>
+                        <div id="confirmPasswordServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.ConfirmPassword']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.PrimarySecurityQuestion.$error"
+                         data-ng-show="createAccountForm.PrimarySecurityQuestion.$invalid && (createAccountForm.PrimarySecurityQuestion.$touched || createAccountForm.$submitted)">
+                        <div id="primarySecurityQuestionRequiredValidation" data-ng-message="required">Please make a selection for Primary Security Question.</div>
+                        <div id="primarySecurityQuestionServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.PrimarySecurityQuestion']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.PrimarySecurityAnswer.$error"
+                         data-ng-show="createAccountForm.PrimarySecurityAnswer.$invalid && (createAccountForm.PrimarySecurityAnswer.$touched || createAccountForm.$submitted)">
+                        <div id="primarySecurityAnswerRequiredValidation" data-ng-message="required">Please provide a value for Primary Security Answer.</div>
+                        <div id="primarySecurityAnswerMinLengthValidation" data-ng-message="minlength">Primary Security Answer should have at least 6 characters.</div>
+                        <div id="primarySecurityAnswerMaxLengthValidation" data-ng-message="maxlength">The Primary Security Answer cannot exceed 50 characters.</div>
+                        <div id="primarySecurityAnswerServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.PrimarySecurityAnswer']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.SecondarySecurityQuestion.$error"
+                         data-ng-show="createAccountForm.SecondarySecurityQuestion.$invalid && (createAccountForm.SecondarySecurityQuestion.$touched || createAccountForm.$submitted)">
+                        <div id="secondarySecurityQuestionRequiredValidation" data-ng-message="required">Please make a selection for Secondary Security Question.</div>
+                        <div id="secondarySecurityQuestionServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.SecondarySecurityQuestion']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="createAccountForm.SecondarySecurityAnswer.$error"
+                         data-ng-show="createAccountForm.SecondarySecurityAnswer.$invalid && (createAccountForm.SecondarySecurityAnswer.$touched || createAccountForm.$submitted)">
+                        <div id="secondarySecurityAnswerRequiredValidation" data-ng-message="required">Please provide a value for Secondary Security Answer.</div>
+                        <div id="secondarySecurityAnswerMinLengthValidation" data-ng-message="minlength">Secondary Security Answer should have at least 6 characters.</div>
+                        <div id="secondarySecurityAnswerMaxLengthValidation" data-ng-message="maxlength">Secondary Security Answer cannot exceed 50 characters.</div>
+                        <div id="secondarySecurityAnswerServerValidation" data-ng-message="server" data-ng-repeat="error in rc.ModelState['model.SecondarySecurityAnswer']">{{error}}</div>
+                    </div>
+
+
+                </div>
+                <div class="pull-right">
+                    <a href="account/link/existing/{{rc.Token}}" class="btn btn-default" id="previous">Previous</a>
+                    <button class="btn btn-primary" id="continue" type="submit">Continue</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

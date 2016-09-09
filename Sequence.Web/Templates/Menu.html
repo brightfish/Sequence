@@ -1,0 +1,54 @@
+﻿<div class="navbar navbar-dark bg-inverse navbar-fixed-top">
+    <div class="container">
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapse">
+            &#9776;
+        </button>
+        <div id="collapse" class="collapse navbar-toggleable-xs">
+            <a ui-sref="session.layout.home" class="navbar-brand">Bright.Fish</a>
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" ui-sref="session.layout.features">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ui-sref="session.layout.contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ui-sref="session.layout.about">About</a>
+                </li>
+            </ul>
+
+            <ul class="pull-xs-right nav navbar-nav">
+                <li data-ng-if="!User.IsAuthenticated" class="nav-item">
+                    <a ui-sref="session.signin" class="nav-link">
+                        <span class="fa fa-sign-in"></span>
+                        <span>Sign In</span>
+                    </a>
+                </li>
+                <li data-ng-if="User.isInRole('Support')" class="nav-item">
+                    <a ui-sref="session.layout.administration" class="nav-link">Administration</a>
+                </li>
+                <li data-ng-if="User.IsAuthenticated" class="dropdown nav-item">
+                    <a id="dropdownLabel" href="#" class="dropdown-toggle nav-link"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <span data-ng-bind="User.GivenName"></span><span class="caret"></span>
+                    </a>
+                    <ul id="accountOptions" class="dropdown-menu">
+                        <li>
+                            <a ui-sref="session.layout.settings" class="nav-link">Settings</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a ui-sref="session.signout" class="nav-link">
+                                <span class="fa fa-sign-out"></span>
+                                <span>Sign out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿<div class="container m-t-2">
+    <div class="col-sm-10 col-md-6 m-x-auto" ng-init="fc.getSecurityQuestions()">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form name="form" novalidate ng-submit="fc.answerSecurityQuestions(model)">
+                    <img class="sign-in-logo center-block" src="Content/Images/logo-login.png" alt="Hawkes Learning">
+                    <h1 class="text-center">Password Reset</h1>
+                    <p>Answer the following security questions.</p>
+
+                    <div class="form-group form-group-lg">
+                        <input id="emailAddress" type="text" class="form-control" value="{{fc.User.Reset.Email}}" readonly />
+                        <!-- Hidden input used for server validation.  Specifically account lockouts. -->
+                        <input type="hidden" name="Email" ng-model="email" />
+                    </div>
+                    <div class="has-error">
+                        <div class="form-group help-block">
+                            <div ng-messages="form.Email.$error" ng-show="form.Email.$invalid && (form.Email.$touched || form.$submitted)">
+                                <div id="emailServerValidation" ng-message="server" ng-repeat="error in fc.ModelState['Email']">{{error}}</div>
+                            </div>
+                            <div ng-messages="form.PrimarySecurityAnswer.$error" ng-show="form.PrimarySecurityAnswer.$invalid && (form.PrimarySecurityAnswer.$touched || form.$submitted)">
+                                <div id="primarySecurityAnswerRequiredValidation" ng-message="required">Primary Security Answer is required.</div>
+                                <div id="primarySecurityAnswerServerValidation" ng-message="server" ng-repeat="error in fc.ModelState['PrimarySecurityAnswer']">{{error}}</div>
+                            </div>
+                            <div ng-messages="form.SecondarySecurityAnswer.$error" ng-show="form.SecondarySecurityAnswer.$invalid && (form.SecondarySecurityAnswer.$touched || form.$submitted)">
+                                <div id="secondarySecurityAnswerRequiredValidation" ng-message="required">Secondary Security Answer is required.</div>
+                                <div id="secondarySecurityAnswerServerValidation" ng-message="server" ng-repeat="error in fc.ModelState['SecondarySecurityAnswer']">{{error}}</div>
+                            </div>
+                            <div ng-messages="form.Password.$error" ng-show="form.Password.$invalid && (form.Password.$touched || form.$submitted)">
+                                <div id="passwordRequiredValidation" ng-message="required">Password is required.</div>
+                                <div id="passwordPatternValidation" ng-message="pattern">Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.</div>
+                                <div id="passwordMinLengthValidation" ng-message="minlength">Password should have at least 6 characters.</div>
+                                <div id="passwordMaxLengthValidation" ng-message="maxlength">Password cannot exceed 50 characters.</div>
+                                <div id="passwordServerValidation" ng-message="server" ng-repeat="error in fc.ModelState['Password']">{{error}}</div>
+                            </div>
+                            <div ng-messages="form.ConfirmPassword.$error" ng-show="form.ConfirmPassword.$invalid && (form.ConfirmPassword.$touched || form.$submitted)">
+                                <div id="confirmPasswordRequiredValidation" ng-message="required">Confirm Password is required.</div>
+                                <div id="confirmPasswordPatternValidation" ng-message="pattern">Confirm Password must match Password.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg" id="primarySecurityQuestion">
+                        <div class="has-feedback"> 
+                            <label>{{fc.User.Reset.PrimarySecurityQuestion}}</label>
+                            <input id="primarySecurityAnswer" type="text" name="PrimarySecurityAnswer" class="form-control" placeholder="Answer" ng-model="model.PrimarySecurityAnswer" required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg" id="secondarySecurityQuestion">
+                        <div class="has-feedback">
+                            <label>{{fc.User.Reset.SecondarySecurityQuestion}}</label>
+                            <input id="secondarySecurityAnswer" type="text" name="SecondarySecurityAnswer" class="form-control" placeholder="Answer" ng-model="model.SecondarySecurityAnswer" required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <div class="has-feedback">
+                            <label>New Password: </label>
+                            <input type="password" name="Password" class="form-control" id="newPassword"
+                                   ng-model="model.Password"
+                                   placeholder="New Password"
+                                   data-ng-pattern="/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/"
+                                   data-ng-minlength="6"
+                                   data-ng-maxlength="50"
+                                   required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <div class="has-feedback">
+                            <label>Confirm New Password: </label>
+                            <input type="password" id="confirmNewPassword" name="ConfirmPassword" ng-pattern="model.Password" ng-model="confirmPassword" class="form-control" placeholder="Confirm Password" required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button id="securityQuestionSubmit" type="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                    </div>
+                    <div class="alert alert-info">Don't want to answer security questions? <a id="securityQuestionSendEmail" href="account/forgot/">Send an email</a> with a password reset link.</div>
+                    <div class="text-center">
+                        <a id="securityQuestionReturnToSignIn" href="account/signin" class="btn btn-default">Return to Sign In</a>
+                    </div>
+                </form>
+                <hr>
+                <p class="text-center">
+                    <b>Need help?</b>
+                    Call (843) 571-2825 or
+                    <a id="securityQuestionLiveChat" href="javascript:void(window.open('https://secure.livechatinc.com/licence/5206491/open_chat.cgi','','width=495,height=345,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">Live Chat 24/7</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

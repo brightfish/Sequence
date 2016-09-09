@@ -1,0 +1,321 @@
+﻿<div class="page-header">
+    <div class="container">
+        <h1>Account Settings</h1>
+    </div>
+</div>
+<div class="container" data-ng-controller="SettingsController as sc">
+    <form name="updatePersonalDetailsForm" data-ng-submit="sc.updatePersonalDetails(sc.PersonalDetails)" novalidate>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Personal Details
+                </h3>
+            </div>
+            <div class="panel-body no-padding">
+                <table class="table">
+                    <tbody>
+                        <tr class="form-group">
+                            <th class="col-md-3">
+                                <label for="givenName">First Name:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="GivenName"
+                                       type="text"
+                                       class="form-control"
+                                       data-ng-model="sc.PersonalDetails.GivenName"
+                                       id="givenName"
+                                       required
+                                       placeholder="First Name" />
+                                <span class="fa fa-remove  ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="form-group">
+                            <th>
+                                <label for="surname">Last Name:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="Surname" type="text"
+                                       class="form-control"
+                                       data-ng-model="sc.PersonalDetails.Surname"
+                                       id="surname"
+                                       required
+                                       placeholder="Last Name">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="form-group">
+                            <th>
+                                <label for="email">Email:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="Email" type="email"
+                                       class="form-control"
+                                       data-ng-model="sc.PersonalDetails.Email"
+                                       id="email"
+                                       required
+                                       placeholder="Email">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer clearfix has-error">
+                <div class="help-block col-md-offset-3" data-ng-show="updatePersonalDetailsForm.$invalid">
+                    <div data-ng-messages="updatePersonalDetailsForm.GivenName.$error"
+                         data-ng-show="updatePersonalDetailsForm.GivenName.$invalid && (updatePersonalDetailsForm.GivenName.$touched || updatePersonalDetailsForm.$submitted)">
+                        <div id="givenNameRequiredValidation" data-ng-message="required">First name is required.</div>
+                    </div>
+
+                    <div data-ng-messages="updatePersonalDetailsForm.Surname.$error"
+                         data-ng-show="updatePersonalDetailsForm.Surname.$invalid && (updatePersonalDetailsForm.Surname.$touched || updatePersonalDetailsForm.$submitted)">
+                        <div id="surnameRequiredValidation" data-ng-message="required">Last name is required.</div>
+                    </div>
+
+                    <div data-ng-messages="updatePersonalDetailsForm.Email.$error"
+                         data-ng-show="updatePersonalDetailsForm.Email.$invalid && (updatePersonalDetailsForm.Email.$touched || updatePersonalDetailsForm.$submitted)">
+                        <div id="emailRequiredValidation" data-ng-message="required">Email is required.</div>
+                        <div id="emailPatternValidation" data-ng-message="email">Please enter a valid email address.</div>
+                        <div id="emailServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.Email']">{{error}}</div>
+                        <div id="emailServerValidations" data-ng-message="server" data-ng-repeat="error in sc.ModelState['']">{{error}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div data-uib-alert type="success" id="personalDetailsSaveSucessful" data-ng-show="sc.PersonalDetailsSaved">Changes Saved Successfully.</div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary pull-right"
+                                id="updatePersonalDetails"
+                                type="submit"
+                                data-ng-disabled="updatePersonalDetailsForm.$pristine">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form name="updateSecurityQuestionsForm" data-ng-submit="sc.updateSecurityQuestions(sc.SecurityQuestions)" novalidate>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Security Questions
+                </h3>
+            </div>
+            <div class="panel-body no-padding">
+                <table class="table">
+                    <tbody>
+                        <tr class="form-group">
+                            <th class="col-md-3">
+                                <label for="primarySecurityQuestion">Primary Security Question:</label>
+                            </th>
+                            <td>
+                                <select class="form-control"
+                                        name="PrimarySecurityQuestion"
+                                        id="primarySecurityQuestion"
+                                        data-ng-change="sc.primarySecurityQuestionChanged()"
+                                        data-ng-options="question.Question as question.Question for question in sc.PrimarySecurityQuestions | filter: { Selected: false }"
+                                        data-ng-model="sc.SecurityQuestions.PrimarySecurityQuestion"
+                                        required>
+                                    <option value="">Select a question</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="PrimarySecurityAnswer">Primary Security Answer:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="PrimarySecurityAnswer" type="text"
+                                       class="form-control"
+                                       data-ng-model="sc.SecurityQuestions.PrimarySecurityAnswer"
+                                       id="primarySecurityAnswer"
+                                       placeholder="Primary Security Answer"
+                                       data-ng-minlength="6"
+                                       data-ng-maxlength="50"
+                                       required>
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="secondarySecurityQuestion">Secondary Security Question:</label>
+                            </th>
+                            <td>
+                                <select class="form-control"
+                                        name="SecondarySecurityQuestion"
+                                        id="secondarySecurityQuestion"
+                                        data-ng-change="sc.secondarySecurityQuestionChanged()"
+                                        data-ng-options="question.Question as question.Question for question in sc.SecondarySecurityQuestions | filter: { Selected: false }"
+                                        data-ng-model="sc.SecurityQuestions.SecondarySecurityQuestion"
+                                        required>
+                                    <option value="">Select a question</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="SecondarySecurityAnswer">Secondary Security Answer:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="SecondarySecurityAnswer" type="text"
+                                       class="form-control"
+                                       data-ng-model="sc.SecurityQuestions.SecondarySecurityAnswer"
+                                       id="secondarySecurityAnswer"
+                                       placeholder="Secondary Security Answer"
+                                       data-ng-minlength="6"
+                                       data-ng-maxlength="50"
+                                       required>
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer clearfix has-error">
+                <div class="help-block col-md-offset-3" data-ng-show="updateSecurityQuestionsForm.$invalid">
+
+                    <div data-ng-messages="updateSecurityQuestionsForm.PrimarySecurityQuestion.$error"
+                         data-ng-show="updateSecurityQuestionsForm.PrimarySecurityQuestion.$invalid && (updateSecurityQuestionsForm.PrimarySecurityQuestion.$touched || updateSecurityQuestionsForm.$submitted)">
+                        <div id="primarySecurityQuestionRequiredValidation" data-ng-message="required">Please make a selection for Primary Security Question.</div>
+                        <div id="primarySecurityQuestionServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.PrimarySecurityQuestion']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="updateSecurityQuestionsForm.PrimarySecurityAnswer.$error"
+                         data-ng-show="updateSecurityQuestionsForm.PrimarySecurityAnswer.$invalid && (updateSecurityQuestionsForm.PrimarySecurityAnswer.$touched || updateSecurityQuestionsForm.$submitted)">
+                        <div id="primarySecurityAnswerRequiredValidation" data-ng-message="required">Primary Security Answer is required.</div>
+                        <div id="primarySecurityAnswerMinLengthValidation" data-ng-message="minlength">Primary Security Answer should have at least 6 characters.</div>
+                        <div id="primarySecurityAnswerMaxLengthValidation" data-ng-message="maxlength">Primary Security Answer cannot exceed 50 characters.</div>
+                        <div id="primarySecurityAnswerServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.PrimarySecurityAnswer']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="updateSecurityQuestionsForm.SecondarySecurityQuestion.$error"
+                         data-ng-show="updateSecurityQuestionsForm.SecondarySecurityQuestion.$invalid && (updateSecurityQuestionsForm.SecondarySecurityQuestion.$touched || updateSecurityQuestionsForm.$submitted)">
+                        <div id="secondarySecurityQuestionRequiredValidation" data-ng-message="required">Please make a selection for Secondary Security Question.</div>
+                        <div id="secondarySecurityQuestionServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.SecondarySecurityQuestion']">{{error}}</div>
+                    </div>
+
+                    <div data-ng-messages="updateSecurityQuestionsForm.SecondarySecurityAnswer.$error"
+                         data-ng-show="updateSecurityQuestionsForm.SecondarySecurityAnswer.$invalid && (updateSecurityQuestionsForm.SecondarySecurityAnswer.$touched || updateSecurityQuestionsForm.$submitted)">
+                        <div id="secondarySecurityAnswerRequiredValidation" data-ng-message="required">Secondary Security Answer is required.</div>
+                        <div id="secondarySecurityAnswerMinLengthValidation" data-ng-message="minlength">Secondary Security Answer should have at least 6 characters.</div>
+                        <div id="secondarySecurityAnswerMaxLengthValidation" data-ng-message="maxlength">Secondary Security Answer cannot exceed 50 characters.</div>
+                        <div id="secondarySecurityAnswerServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.SecondarySecurityAnswer']">{{error}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div data-uib-alert type="success" id="securityQuestionsSaveSucessful" data-ng-show="sc.SecurityQuestionsSaved">Changes Saved Successfully.</div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary pull-right" id="updateSecurityQuestions" type="submit"
+                                data-ng-disabled="updateSecurityQuestionsForm.$pristine">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form name="updatePasswordForm" data-ng-submit="sc.changePassword(sc.PasswordDetails)" novalidate>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Change Password
+                </h3>
+            </div>
+            <div class="panel-body no-padding">
+                <table class="table">
+                    <tbody>
+                        <tr class="form-group">
+                            <th class="col-md-3">
+                                <label for="password">Old Password:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="OldPassword"
+                                       type="password"
+                                       class="form-control"
+                                       data-ng-model="sc.PasswordDetails.OldPassword"
+                                       id="oldPassword"
+                                       required
+                                       placeholder="Old Password">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="password">New Password:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="NewPassword"
+                                       type="password"
+                                       class="form-control"
+                                       data-ng-model="sc.PasswordDetails.NewPassword"
+                                       data-ng-pattern="/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/"
+                                       data-ng-minlength="6"
+                                       data-ng-maxlength="50"
+                                       id="newPassword"
+                                       required
+                                       placeholder="New Password">
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th>
+                                <label for="confirmPassword">Confirm Password:</label>
+                            </th>
+                            <td class="has-feedback">
+                                <input name="ConfirmPassword"
+                                       type="password"
+                                       class="form-control"
+                                       data-ng-model="sc.PasswordDetails.ConfirmPassword"
+                                       data-ng-pattern="sc.PasswordDetails.NewPassword"
+                                       id="confirmPassword"
+                                       placeholder="Confirm Password"
+                                       required>
+                                <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer clearfix has-error">
+                <div class="help-block col-md-offset-3" data-ng-show="updatePasswordForm.$invalid">
+                    <div data-ng-messages="updatePasswordForm.OldPassword.$error"
+                         data-ng-show="updatePasswordForm.OldPassword.$invalid && (updatePasswordForm.OldPassword.$touched || updatePasswordForm.$submitted)">
+                        <div id="oldPasswordRequiredValidation" data-ng-message="required">Old Password is required.</div>
+                        <div id="oldPasswordServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['']">{{error}}</div>
+                    </div>
+                    <div data-ng-messages="updatePasswordForm.NewPassword.$error"
+                         data-ng-show="updatePasswordForm.NewPassword.$invalid && (updatePasswordForm.NewPassword.$touched || updatePasswordForm.$submitted)">
+                        <div id="newPasswordRequiredValidation" data-ng-message="required">New Password is required.</div>
+                        <div id="newPasswordMinLengthValidation" data-ng-message="minlength">New Password should have at least 6 characters.</div>
+                        <div id="newPasswordMaxLengthValidation" data-ng-message="maxlength">New Password cannot exceed 50 characters.</div>
+                        <div id="newPasswordPatternValidation" data-ng-message="pattern">New Password must contain at least 1 uppercase letter, 1 lowescase letter, and 1 number.</div>
+                        <div id="newPasswordServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.NewPassword']">{{error}}</div>
+                    </div>
+                    <div data-ng-messages="updatePasswordForm.ConfirmPassword.$error"
+                         data-ng-show="updatePasswordForm.ConfirmPassword.$invalid && (updatePasswordForm.ConfirmPassword.$touched || updatePasswordForm.$submitted)">
+                        <div id="confirmPasswordRequiredValidation" data-ng-message="required">Password confirmation is required.</div>
+                        <div id="confirmPasswordMatchValidation" data-ng-message="pattern">The password and confirmation password do not match.</div>
+                        <div id="confirmPasswordServerValidation" data-ng-message="server" data-ng-repeat="error in sc.ModelState['model.ConfirmPassword']">{{error}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div data-uib-alert type="success" id="passwordSaveSucessful" data-ng-show="sc.PasswordSaved">Changes Saved Successfully.</div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary pull-right" id="updatePassword" type="submit"
+                                data-ng-disabled="updatePasswordForm.$pristine">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

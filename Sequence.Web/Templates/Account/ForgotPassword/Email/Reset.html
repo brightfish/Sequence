@@ -1,0 +1,66 @@
+﻿<div class="container m-t-2">
+    <div class="col-sm-8 col-md-5 m-x-auto">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form name="form" novalidate ng-submit="fc.resetPassword(password)">
+                    <img class="sign-in-logo center-block" src="Content/Images/logo-login.png" alt="Hawkes Learning">
+                    <h1 class="text-center">Password Reset</h1>
+                    <div class="has-error">
+                        <div class="form-group help-block">
+                            <div id="password" ng-messages="form.Password.$error" ng-show="form.Password.$invalid && (form.Password.$touched || form.$submitted)">
+                                <div id="requiredValidation" ng-message="required">Password is required.</div>
+                                <div id="patternValidation" ng-message="pattern">Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.</div>
+                                <div id="minLengthValidation" ng-message="minlength">Password should have at least 6 characters.</div>
+                                <div id="maxLengthValidation" ng-message="maxlength">Password cannot exceed 50 characters.</div>
+                                <div id="serverValidation" ng-message="server" ng-repeat="error in fc.ModelState['Password']">{{error}}</div>
+                            </div>
+                            <div id="confirmPassword" ng-messages="form.ConfirmPassword.$error" ng-show="form.ConfirmPassword.$invalid && (form.ConfirmPassword.$touched || form.$submitted)">
+                                <div id="requiredValidation" ng-message="required">Confirm Password is required.</div>
+                                <div id="patternValidation" ng-message="pattern">Confirm Password must match Password.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <div class="has-feedback">
+                            <label>New Password: </label>
+                            <input id="password" type="password" name="Password" class="form-control" placeholder="New Password"
+                                   ng-model="password"
+                                   data-ng-pattern="/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/"
+                                   data-ng-minlength="6"
+                                   data-ng-maxlength="50"
+                                   required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+
+                        <div class="has-feedback">
+                            <label>Confirm Password: </label>
+                            <input type="password" id="confirmPassword" name="ConfirmPassword" class="form-control" placeholder="Confirm Password"
+                                   ng-model="confirmPassword"
+                                   ng-pattern="password"
+                                   required />
+                            <span class="fa fa-remove ng-feedback form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button id="resetPasswordSubmit" type="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                    </div>
+
+                    <div class="text-center">
+                        <a id="resetPasswordReturnToSignIn" href="account/signin" class="btn btn-default">Return to Sign In</a>
+                    </div>
+                </form>
+                <hr>
+                <p class="text-center">
+                    <b>Need help?</b>
+                    Call (843) 571-2825 or
+                    <a id="resetPasswordLiveChat" href="javascript:void(window.open('https://secure.livechatinc.com/licence/5206491/open_chat.cgi','','width=495,height=345,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">Live Chat 24/7</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

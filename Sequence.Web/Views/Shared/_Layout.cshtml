@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="@HttpContext.Current.Request.ApplicationPath/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/content/css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/libraries")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/application")
+    @RenderSection("scripts", required: false)
+</head>
+<body ng-app="Application">
+    <div ui-view>
+        @RenderBody()
+    </div>
+</body>
+</html>
