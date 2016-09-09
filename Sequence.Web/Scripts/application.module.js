@@ -45,7 +45,7 @@
             .state('session.layout.features', {
                 url: '/features',
                 templateUrl: 'templates/landing/features.html',
-                controller: 'ActionController as ac'
+                controller: 'SequenceController as ac'
             })
             .state('session.layout.contact', {
                 url: '/contact',

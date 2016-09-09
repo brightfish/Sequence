@@ -1,8 +1,12 @@
 ﻿<div class="container m-t-2">
     <div class="col-sm-6">
         <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Actions</h4>
+                <p class="card-text">These are the actions types to choose from.  Drag these into the sequence to modify the sequence.</p>
+            </div>
             <div class="list-group list-group-flush">
-                <div class="list-group-item" draggable ng-repeat="action in ac.Actions" ng-model="action">
+                <div class="list-group-item" draggable selectable ng-repeat="action in ac.Actions" ng-model="action" action="copy">
                     <i class="fa fa-ellipsis-v m-r-2" handle></i> {{action.Type}}
                 </div>
             </div>
@@ -10,11 +14,15 @@
     </div>
     <div class="col-sm-6">
         <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Sequence</h4>
+                <p class="card-text">The sequence is executed from top to bottom.</p>
+            </div>
             <div class="list-group list-group-flush" style="min-height:50px;" droppable ng-model="ac.Sequence.Actions">
                 <div class="list-group-item" placeholder>
                     <i class="fa fa-ellipsis-v m-r-2" handle></i>
                 </div>
-                <div class="list-group-item" draggable ng-repeat="action in ac.Sequence.Actions">
+                <div class="list-group-item show" draggable selectable ng-repeat="action in ac.Sequence.Actions" ng-model="action" action="move">
                     <i class="fa fa-ellipsis-v m-r-2" handle></i> {{action.Type}}
                     <button type="button" class="close pull-right" ng-click="ac.Remove(action)">
                         <i class="fa fa-close"></i>

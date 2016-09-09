@@ -1,9 +1,9 @@
 ﻿(function () {
     var application = angular.module('Application');
 
-    application.controller('ActionController', ActionController);
+    application.controller('SequenceController', SequenceController);
 
-    function ActionController() {
+    function SequenceController() {
         var vm = this;
         vm.Sequence = {};
         vm.Sequence.Actions = [];

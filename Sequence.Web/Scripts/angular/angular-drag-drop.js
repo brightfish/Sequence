@@ -1,34 +1,50 @@
 ﻿(function () {
+    'use strict';
+    //draggable
+    //action='?' copy, move
+    //ng-model required
+
+
     var module = angular.module('drag-drop', []);
-    module.directive('draggable', ['$parse', '$timeout', 'dndDropEffectWorkaround', 'dndDragTypeWorkaround',
-                          function ($parse, $timeout, dndDropEffectWorkaround, dndDragTypeWorkaround) {
+    module.directive('draggable', ['$parse', '$timeout', 'information',
+                          function ($parse, $timeout, information) {
                               return function (scope, element, attr, model) {
-                                  element.attr("draggable", "true");
-
-                                  if (attr.disabled) {
-                                      scope.$watch(attr.disabled, function (disabled) {
-                                          element.attr("draggable", !disabled);
-                                      });
+                                  var handle = element.find('*[handle]');
+                                  if (!handle) {
+                                      handle = element;
                                   }
+                                  handle.attr('draggable', 'true');
 
-                                  element.on('dragstart', function (event) {
+                                  handle.on('dragstart', function (event) {
                                       event = event.originalEvent || event;
 
                                       if (element.attr('draggable') == 'false') return true;
 
-                                      event.dataTransfer.setData("Text", angular.toJson(scope.$eval(attr.ngModel)));
+                                      information.action = attr.action || 'move';
+                                      switch (information.action) {
+                                          case 'move':
+                                              information.model = scope.$eval(attr.ngModel);
+                                              element.addClass('moving');
+                                              break;
+                                          case 'copy':
+                                              information.model = angular.copy(scope.$eval(attr.ngModel));
+                                              element.addClass('copying');
+                                              break;
+                                          default:
+                                              throw 'Not Implemented';
+                                      }
 
-                                      event.dataTransfer.effectAllowed = attr.dndEffectAllowed || "move";
+                                      event.dataTransfer.effectAllowed = information.action;
 
                                       element.addClass("dragging");
+
                                       $timeout(function () { element.addClass("dragging-source"); }, 0);
 
-                                      dndDropEffectWorkaround.dropEffect = "none";
-                                      dndDragTypeWorkaround.isDragging = true;
+                                      information.dropEffect = "none";
+                                      information.isDragging = true;
+                                      information.type = attr.type;
 
-                                      dndDragTypeWorkaround.dragType = attr.dndType ? scope.$eval(attr.dndType) : undefined;
-
-                                      if (event._dndHandle && event.dataTransfer.setDragImage) {
+                                      if (event.dataTransfer.setDragImage) {
                                           event.dataTransfer.setDragImage(element[0], 0, 0);
                                       }
 
@@ -37,113 +53,84 @@
                                       event.stopPropagation();
                                   });
 
-
-                                  element.on('dragend', function (event) {
+                                  handle.on('dragend', function (event) {
                                       event = event.originalEvent || event;
 
-                                      var dropEffect = dndDropEffectWorkaround.dropEffect;
-                                      scope.$apply(function () {
-                                          switch (dropEffect) {
-                                              case "move":
-                                                  $parse(attr.dndMoved)(scope, { event: event });
-                                                  break;
-                                              case "copy":
-                                                  $parse(attr.dndCopied)(scope, { event: event });
-                                                  break;
-                                              case "none":
-                                                  $parse(attr.dndCanceled)(scope, { event: event });
-                                                  break;
-                                          }
-                                          $parse(attr.dndDragend)(scope, { event: event, dropEffect: dropEffect });
-                                      });
-
+                                      element.removeClass('moving');
+                                      element.removeClass('copying');
                                       element.removeClass("dragging");
-                                      $timeout(function () { element.removeClass("dndDraggingSource"); }, 0);
-                                      dndDragTypeWorkaround.isDragging = false;
+                                      $timeout(function () { element.removeClass("dragging-source"); }, 0);
+                                      information.isDragging = false;
                                       event.stopPropagation();
-                                  });
-
-                                  element.on('click', function (event) {
-                                      if (!attr.dndSelected) return;
-
-                                      event = event.originalEvent || event;
-                                      scope.$apply(function () {
-                                          $parse(attr.dndSelected)(scope, { event: event });
-                                      });
-
-                                      // Prevent triggering dndSelected in parent elements.
-                                      event.stopPropagation();
-                                  });
-
-
-                                  element.on('selectstart', function () {
-                                      if (this.dragDrop) this.dragDrop();
                                   });
                               };
-                          }])
+                          }]);
 
-    module.directive('droppable', ['$parse', '$timeout', 'dndDropEffectWorkaround', 'dndDragTypeWorkaround',
-                   function ($parse, $timeout, dndDropEffectWorkaround, dndDragTypeWorkaround) {
+    module.directive('droppable', ['$parse', '$timeout', 'information',
+                   function ($parse, $timeout, information) {
                        return function (scope, element, attr) {
                            var placeholder = getPlaceholderElement();
                            var placeholderNode = placeholder[0];
-                           var listNode = element[0];
+                           var droppableNode = element[0];
                            placeholder.remove();
 
-                           var horizontal = attr.dndHorizontalList && scope.$eval(attr.dndHorizontalList);
-                           var externalSources = attr.dndExternalSources && scope.$eval(attr.dndExternalSources);
+                           var horizontal = attr.horizontal && scope.$eval(attr.horizontal);
 
                            element.on('dragenter', function (event) {
                                event = event.originalEvent || event;
-                               if (!isDropAllowed(event)) return true;
+                               if (!isDropAllowed(event)) {
+                                   return true;
+                               }
+
                                event.preventDefault();
                            });
 
                            element.on('dragover', function (event) {
                                event = event.originalEvent || event;
 
-                               if (!isDropAllowed(event)) return true;
+                               if (!isDropAllowed(event)) {
+                                   return true;
+                               }
 
-                               // First of all, make sure that the placeholder is shown
-                               // This is especially important if the list is empty
-                               if (placeholderNode.parentNode != listNode) {
+                               if (placeholderNode.parentNode != droppableNode) {
                                    element.append(placeholder);
                                }
 
-                               if (event.target !== listNode) {
-                                   // Try to find the node direct directly below the list node.
+                               if (event.target !== droppableNode) {
+                                   // Find the node direct directly below the list node.
                                    var listItemNode = event.target;
-                                   while (listItemNode.parentNode !== listNode && listItemNode.parentNode) {
+                                   while (listItemNode.parentNode !== droppableNode && listItemNode.parentNode) {
                                        listItemNode = listItemNode.parentNode;
                                    }
 
-                                   if (listItemNode.parentNode === listNode && listItemNode !== placeholderNode) {
+                                   if (listItemNode.parentNode === droppableNode && listItemNode !== placeholderNode) {
                                        // If the mouse pointer is in the upper half of the child element,
                                        // we place it before the child element, otherwise below it.
                                        if (isMouseInFirstHalf(event, listItemNode)) {
-                                           listNode.insertBefore(placeholderNode, listItemNode);
+                                           droppableNode.insertBefore(placeholderNode, listItemNode);
                                        } else {
-                                           listNode.insertBefore(placeholderNode, listItemNode.nextSibling);
+                                           droppableNode.insertBefore(placeholderNode, listItemNode.nextSibling);
                                        }
                                    }
-                               } else {
+                               }
+                               else {
 
                                    if (isMouseInFirstHalf(event, placeholderNode, true)) {
                                        while (placeholderNode.previousElementSibling
                                             && (isMouseInFirstHalf(event, placeholderNode.previousElementSibling, true)
                                             || placeholderNode.previousElementSibling.offsetHeight === 0)) {
-                                           listNode.insertBefore(placeholderNode, placeholderNode.previousElementSibling);
+                                           droppableNode.insertBefore(placeholderNode, placeholderNode.previousElementSibling);
                                        }
                                    } else {
                                        while (placeholderNode.nextElementSibling &&
                                             !isMouseInFirstHalf(event, placeholderNode.nextElementSibling, true)) {
-                                           listNode.insertBefore(placeholderNode,
+                                           droppableNode.insertBefore(placeholderNode,
                                                placeholderNode.nextElementSibling.nextElementSibling);
                                        }
                                    }
                                }
 
-                               if (attr.dndDragover && !invokeCallback(attr.dndDragover, event, getPlaceholderIndex())) {
+                               if (attr.dragover && !invokeCallback(attr.dragover, event, getPlaceholderIndex())) {
                                    return stopDragover();
                                }
 
@@ -158,48 +145,51 @@
 
                                if (!isDropAllowed(event)) return true;
 
-                               // The default behavior in Firefox is to interpret the dropped element as URL and
-                               // forward to it. We want to prevent that even if our drop is aborted.
+                               //Prevent browser from interpreting as Url.
                                event.preventDefault();
-
-                               // Unserialize the data that was serialized in dragstart. According to the HTML5 specs,
-                               // the "Text" drag type will be converted to text/plain, but IE does not do that.
-                               var data = event.dataTransfer.getData("Text") || event.dataTransfer.getData("text/plain");
-                               var transferredObject;
-                               try {
-                                   transferredObject = JSON.parse(data);
-                               } catch (e) {
-                                   return stopDragover();
-                               }
 
                                // Invoke the callback, which can transform the transferredObject and even abort the drop.
                                var index = getPlaceholderIndex();
-                               if (attr.dndDrop) {
-                                   transferredObject = invokeCallback(attr.dndDrop, event, index, transferredObject);
-                                   if (!transferredObject) {
+                               if (attr.ondrop) {
+                                   information.model = invokeCallback(attr.ondrop, event, index, information.model);
+                                   if (!information.model) {
                                        return stopDragover();
                                    }
                                }
 
                                // Insert the object into the array, unless dnd-drop took care of that (returned true).
-                               if (transferredObject !== true) {
+                               if (information.model !== true) {
                                    scope.$apply(function () {
-                                       scope.$eval(attr.ngModel).splice(index, 0, transferredObject);
+                                       var model = scope.$eval(attr.ngModel);
+                                       switch (information.action) {
+                                           case 'move':
+                                               var test = model.indexOf(information.model);
+
+                                               if (test >= 0) {
+                                                   model.splice(test, 1);
+                                               }
+                                               break;
+                                           case 'none':
+                                           case 'copy':
+                                               break;
+
+                                           default:
+                                               throw 'Not Implemented';
+                                       }
+
+                                       model.splice(index, 0, information.model);
                                    });
                                }
-                               invokeCallback(attr.dndInserted, event, index, transferredObject);
 
-                               // In Chrome on Windows the dropEffect will always be none...
-                               // We have to determine the actual effect manually from the allowed effects
                                if (event.dataTransfer.dropEffect === "none") {
                                    if (event.dataTransfer.effectAllowed === "copy" ||
                                        event.dataTransfer.effectAllowed === "move") {
-                                       dndDropEffectWorkaround.dropEffect = event.dataTransfer.effectAllowed;
+                                       information.dropEffect = event.dataTransfer.effectAllowed;
                                    } else {
-                                       dndDropEffectWorkaround.dropEffect = event.ctrlKey ? "copy" : "move";
+                                       information.dropEffect = event.ctrlKey ? "copy" : "move";
                                    }
                                } else {
-                                   dndDropEffectWorkaround.dropEffect = event.dataTransfer.dropEffect;
+                                   information.dropEffect = event.dataTransfer.dropEffect;
                                }
 
                                stopDragover();
@@ -233,22 +223,20 @@
                            }
 
                            function getPlaceholderIndex() {
-                               return Array.prototype.indexOf.call(listNode.children, placeholderNode);
+                               return Array.prototype.indexOf.call(droppableNode.children, placeholderNode);
                            }
 
                            function isDropAllowed(event) {
-                               if (!dndDragTypeWorkaround.isDragging && !externalSources) return false;
+                               if (!information.isDragging) return false;
 
-                               if (!hasTextMimetype(event.dataTransfer.types)) return false;
-
-                               if (attr.dndAllowedTypes && dndDragTypeWorkaround.isDragging) {
-                                   var allowed = scope.$eval(attr.dndAllowedTypes);
-                                   if (angular.isArray(allowed) && allowed.indexOf(dndDragTypeWorkaround.dragType) === -1) {
+                               if (attr.allowed && information.isDragging) {
+                                   var allowed = attr.allowed;
+                                   if (angular.isArray(allowed) && allowed.indexOf(information.dragType) === -1) {
                                        return false;
                                    }
                                }
 
-                               if (attr.dndDisableIf && scope.$eval(attr.dndDisableIf)) return false;
+                               if (scope.$eval(attr.disabled)) return false;
 
                                return true;
                            }
@@ -264,8 +252,8 @@
                                    event: event,
                                    index: index,
                                    item: item || undefined,
-                                   external: !dndDragTypeWorkaround.isDragging,
-                                   type: dndDragTypeWorkaround.isDragging ? dndDragTypeWorkaround.dragType : undefined
+                                   external: !information.isDragging,
+                                   type: information.isDragging ? information.dragType : undefined
                                });
                            }
 
@@ -278,47 +266,51 @@
                                return false;
                            }
                        };
-                   }])
+                   }]);
 
-    module.directive('noDrag', function () {
-        return function (scope, element, attr) {
-            element.attr("draggable", "true");
 
-            element.on('dragstart', function (event) {
-                event = event.originalEvent || event;
 
-                if (!event._dndHandle) {
-                    if (!(event.dataTransfer.types && event.dataTransfer.types.length)) {
-                        event.preventDefault();
+
+
+    module.factory('information', function () { return {} });
+
+    module.directive('selectable', function ($document) {
+
+        var dictionary = [];
+
+        $document.find('html').on('mousedown', function (event) {
+            event = event.originalEvent || event;
+
+            for (var type in dictionary) {
+                var elements = dictionary[type];
+
+                for (var index in elements) {
+                    var target = dictionary[type][index];
+                    target.removeClass('active');
+                }
+            }
+            event.stopPropagation();
+        });
+
+        return {
+            link: function (scope, element, attributes) {
+                var elements = dictionary[attributes.type] = dictionary[attributes.type] ? dictionary[attributes.type] : [];
+                elements.push(element);
+
+                element.on('mousedown', function (event) {
+                    for (var index in dictionary[attributes.type]) {
+                        var target = dictionary[attributes.type][index];
+                        target.removeClass('active');
                     }
+
+                    element.addClass('active');
                     event.stopPropagation();
-                }
-            });
+                });
+            }
+        }
+    });
 
-            element.on('dragend', function (event) {
-                event = event.originalEvent || event;
-                if (!event._dndHandle) {
-                    event.stopPropagation();
-                }
-            });
-        };
-    })
+    module.directive('openable', function () {
 
-    module.directive('handle', function () {
-        return function (scope, element, attr) {
-            element.attr("draggable", "true");
-            element.addClass('handle');
-            element.on('dragstart dragend', function (event) {
-                event = event.originalEvent || event;
-                event._dndHandle = true;
-            });
-        };
-    })
-
-
-    module.factory('dndDragTypeWorkaround', function () { return {} })
-
-
-    module.factory('dndDropEffectWorkaround', function () { return {} });
-
+    });
 })();
