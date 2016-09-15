@@ -32,7 +32,7 @@
         }
 
         function signIn(credentials) {
-            if ($scope.signInForm.$valid) {
+            if ($scope.form.$valid) {
                 var promise = accountService.signIn(credentials);
 
                 promise.then(function (result) {

@@ -25,7 +25,7 @@
     </Endpoints>
     <Contents>
       <Content destination=".\">
-        <SourceDirectory path="c:\users\chris.nimmons\documents\visual studio 2013\Projects\Sequence.Azure\Sequence.Azure\rcf\Debug\Application.WebContent\" />
+        <SourceDirectory path="C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Azure\rcf\Debug\Application.WebContent\" />
       </Content>
     </Contents>
   </WebRole>
@@ -35,7 +35,7 @@
     </ConfigurationSettings>
     <Contents>
       <Content destination=".\">
-        <SourceDirectory path="c:\users\chris.nimmons\documents\visual studio 2013\Projects\Sequence.Azure\Sequence.Azure\rcf\Debug\Application.WorkerContent\" />
+        <SourceDirectory path="C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Azure\rcf\Debug\Application.WorkerContent\" />
       </Content>
     </Contents>
   </WorkerRole>

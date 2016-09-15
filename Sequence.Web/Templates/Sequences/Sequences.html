@@ -1,0 +1,30 @@
+﻿<div class="container m-t-2">
+    <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">
+                Sequences
+            </h4>
+            <div class="card-text">
+                <form ng-submit="sc.Add(sequence)">
+                    <div class="col-sm-3 offset-sm-9">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Name" ng-model="sequence.Name" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-secondary pull-right">Add</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="list-group list-group-flush">
+            <div class="list-group-item" selectable ng-repeat="sequence in sc.Sequences" ng-model="action" ng-dblclick="" action="copy">
+                {{sequence.Name}}
+                <div class="btn-group pull-right ">
+                    <button type="button" class="btn btn-sm btn-secondary text-primary" ng-click="sc.Edit(sequence)">Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="sc.Remove(sequence)">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,14 +12,14 @@ namespace Application.Data
 {
     
 
-    public class SequenceContext : IdentityDbContext<SequenceUser>
+    public class SequenceContext : IdentityDbContext<SequenceUser, SequenceRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>
     {
         public DbSet<Sequence> Sequences { get; set; }
 
-        public DbSet<ExecutionContext> ExecutionContexts { get; set; }
+        public DbSet<SequenceState> ExecutionContexts { get; set; }
 
         public SequenceContext()
-            : base("name=SequenceContext", true)
+            : base("name=SequenceContext")
         {
         }
 
@@ -43,7 +43,7 @@ namespace Application.Data
                 .WithRequired()
                 .WillCascadeOnDelete();
 
-            builder.Entity<IdentityRole>()
+            builder.Entity<SequenceRole>()
                 .ToTable("Roles");
             builder.Entity<IdentityUserLogin>()
                 .ToTable("UserLogins");
@@ -58,11 +58,11 @@ namespace Application.Data
                 .WillCascadeOnDelete();
 
             builder.Entity<Sequence>()
-                .HasMany(q => q.ExecutionContexts)
+                .HasMany(q => q.SequenceStates)
                 .WithRequired(q => q.Sequence)
                 .WillCascadeOnDelete();
 
-            builder.Entity<ExecutionContext>()
+            builder.Entity<SequenceState>()
                 .HasKey(q => q.Id);
         }
     }

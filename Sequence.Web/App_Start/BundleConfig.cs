@@ -25,10 +25,9 @@ namespace Application.Web
 
             bundles.Add(new ScriptBundle("~/bundles/angular")
                 .Include("~/scripts/angular/angular.js")
-                .Include("~/scripts/angular/angular-drag-drop.js")
-                .Include("~/scripts/angular/angular-route.js")
-                .Include("~/scripts/angular/angular-messages.js")
-                .Include("~/scripts/angular/angular-ui-router.js"));
+                .Include("~/scripts/angular/angular-ui-router.js")
+                .Include("~/scripts/angular/angular-ui-bootstrap-templates.js")
+                .IncludeDirectory("~/scripts/angular", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/bundles/application")
                 .Include("~/scripts/application.module.js")

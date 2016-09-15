@@ -1,11 +1,13 @@
-﻿<div class="navbar navbar-dark bg-inverse navbar-fixed-top">
+﻿<div class="navbar navbar-light bg-faded navbar-fixed-top">
     <div class="container">
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapse">
             &#9776;
         </button>
         <div id="collapse" class="collapse navbar-toggleable-xs">
-            <a ui-sref="session.layout.home" class="navbar-brand">Bright.Fish</a>
-            <ul class="nav navbar-nav">
+            <a ui-sref="session.layout.home" class="navbar-brand">
+                <img src="content/images/logo-32px.png"
+            </a>
+            <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
                     <a class="nav-link" ui-sref="session.layout.features">Features</a>
                 </li>
@@ -15,13 +17,9 @@
                 <li class="nav-item">
                     <a class="nav-link" ui-sref="session.layout.about">About</a>
                 </li>
-            </ul>
-
-            <ul class="pull-xs-right nav navbar-nav">
                 <li data-ng-if="!User.IsAuthenticated" class="nav-item">
-                    <a ui-sref="session.signin" class="nav-link">
-                        <span class="fa fa-sign-in"></span>
-                        <span>Sign In</span>
+                    <a ui-sref="session.layout.signin" class="nav-link">
+                        Sign In
                     </a>
                 </li>
                 <li data-ng-if="User.isInRole('Support')" class="nav-item">

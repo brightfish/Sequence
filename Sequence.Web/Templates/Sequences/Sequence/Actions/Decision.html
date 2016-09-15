@@ -1,0 +1,16 @@
+﻿<div class="container m-t-2">
+    <div class="card">
+        <div class="card-block">
+            <h3 class="card-title">Decision Action</h3>
+            <p class="card-text">
+                A Decision Action allows a user to select a path to other sequences.  It will push a notification to your mobile device asking a Yes or No question.
+            </p>
+            <form ng-submit="ac.Add(action)">
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Message" ng-model="action.Message" required></textarea>
+                </div>
+                <button class="btn btn-primary pull-right">Add</button>
+            </form>
+        </div>
+    </div>
+</div>

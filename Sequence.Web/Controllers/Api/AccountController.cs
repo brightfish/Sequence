@@ -1,4 +1,5 @@
 ﻿using Application.Data;
+using Application.Data.Managers;
 using Application.Web.Models;
 using Application.Web.Properties;
 using Microsoft.AspNet.Identity;
@@ -25,6 +26,7 @@ namespace Application.Web.Controllers.Account
     {
         private SequenceUserManager _UserManager { get; set; }
         private SequenceContext _SequenceContext { get; set; }
+
         public AccountController(SequenceContext sequenceContext, SequenceUserManager userManager, Func<string, IIdentityMessageService> emailServiceFactory, IUserTokenProvider<SequenceUser, string> tokenProvider)
         {
             _SequenceContext = sequenceContext;
@@ -310,7 +312,6 @@ namespace Application.Web.Controllers.Account
 
             var user = new SequenceUser()
             {
-                Id = Guid.NewGuid().ToString(),
                 UserName = model.Email,
                 Email = model.Email,
             };
@@ -348,7 +349,7 @@ namespace Application.Web.Controllers.Account
             Claim givenNameClaim = identity.FindFirst(ClaimTypes.GivenName);
             Claim surnameClaim = identity.FindFirst(ClaimTypes.Surname);
 
-            ICollection<IdentityUserClaim> claims = user.Claims;
+            var claims = user.Claims;
             user.Claims.SingleOrDefault(c => c.ClaimType == ClaimTypes.GivenName).ClaimValue = model.GivenName;
             user.Claims.SingleOrDefault(c => c.ClaimType == ClaimTypes.Surname).ClaimValue = model.Surname;
             var result = await _UserManager.UpdateAsync(user);

@@ -13,6 +13,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using Application.Web.General;
 using System.Web.Http;
+using Application.Data.Managers;
+using Application.Data.Entities;
 
 [assembly: OwinStartup(typeof(Application.Web.Startup))]
 
@@ -34,15 +36,14 @@ namespace Application.Web
         {
             var container = new Container();
 
-            container.RegisterWebApiRequest<IUserTokenProvider<SequenceUser, string>>(() => new DataProtectorTokenProvider<SequenceUser, string>(builder.GetDataProtectionProvider().Create("UserTokenPurpose")));
-            container.RegisterWebApiRequest<DbContext>(() => new SequenceContext());
+            container.RegisterWebApiRequest<IUserTokenProvider<SequenceUser, string>>(() => new DataProtectorTokenProvider<SequenceUser>(builder.GetDataProtectionProvider().Create("UserTokenPurpose")));
             container.RegisterWebApiRequest<SequenceContext>(() => new SequenceContext());
-            container.RegisterWebApiRequest<IUserStore<SequenceUser, string>, UserStore<SequenceUser, IdentityRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>>();
+            container.RegisterWebApiRequest<IUserStore<SequenceUser, string>, SequenceUserStore>();
             container.RegisterWebApiRequest<SequenceUserManager>();
             container.RegisterWebApiRequest<Func<string, IIdentityMessageService>>(() => (email) => new GenericEmailService(email));
 
-            container.RegisterWebApiRequest<IRoleStore<IdentityRole, string>>(() => new RoleStore<IdentityRole>());
-            container.RegisterWebApiRequest<RoleManager<IdentityRole>>();
+            container.RegisterWebApiRequest<IRoleStore<SequenceRole, string>, SequenceRoleStore>();
+            container.RegisterWebApiRequest<RoleManager<SequenceRole>>();
             
             container.RegisterWebApiControllers(configuration);
             configuration.DependencyResolver = new SimpleInjector.Integration.WebApi.SimpleInjectorWebApiDependencyResolver(container);

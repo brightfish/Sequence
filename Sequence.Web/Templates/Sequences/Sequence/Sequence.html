@@ -1,0 +1,35 @@
+﻿<div class="container m-t-2">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Actions</h4>
+                <p class="card-text">These are the actions types to choose from.  Drag actions into the sequence to alter the behavior.</p>
+            </div>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item" selectable ng-repeat="action in sc.Actions" ng-dblclick="sc.Add(action)" ng-model="action" action="copy">
+                    {{action.Type}} <button class="btn btn-secondary btn-sm pull-right" ng-click="sc.Add(action)">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Sequence</h4>
+                <p class="card-text">Sequences are executed from top to bottom.</p>
+            </div>
+            <div class="list-group list-group-flush" style="min-height:50px;" droppable ng-model="sc.Sequence.Actions">
+                <div class="list-group-item" placeholder>
+                    <i class="fa fa-ellipsis-v m-r-2" handle></i>
+                </div>
+                <div class="list-group-item show" draggable selectable ng-repeat="action in sc.Sequence.Actions" ng-dblclick="sc.Edit(action)" ng-model="action" action="move">
+                    <i class="fa fa-ellipsis-v m-r-2" handle></i> {{action.Type}}
+                    <div class="btn-group pull-right text-primary">
+                        <a type="button" class="btn btn-secondary btn-sm">Edit</a>
+                        <button type="button" class="btn btn-danger btn-sm" ng-click="sc.Remove(action)">Remove</button>                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

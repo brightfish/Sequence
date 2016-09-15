@@ -108,11 +108,16 @@
     <Compile Include="Entities\Actions\SequenceAction.cs" />
     <Compile Include="Entities\Actions\SkypeAction.cs" />
     <Compile Include="Entities\Actions\TextAction.cs" />
+    <Compile Include="Entities\Permission.cs" />
     <Compile Include="Entities\Sequence.cs" />
-    <Compile Include="Entities\ExecutionContext.cs" />
-    <Compile Include="Migrations\201609082340079_Initialize.cs" />
-    <Compile Include="Migrations\201609082340079_Initialize.Designer.cs">
-      <DependentUpon>201609082340079_Initialize.cs</DependentUpon>
+    <Compile Include="Entities\SequenceRole.cs" />
+    <Compile Include="Entities\SequenceState.cs" />
+    <Compile Include="Managers\SequenceRoleManager.cs" />
+    <Compile Include="Managers\SequenceUserStore.cs" />
+    <Compile Include="Managers\SequenceRoleStore.cs" />
+    <Compile Include="Migrations\201609150112002_Initialization.cs" />
+    <Compile Include="Migrations\201609150112002_Initialization.Designer.cs">
+      <DependentUpon>201609150112002_Initialization.cs</DependentUpon>
     </Compile>
     <Compile Include="Providers\MachineKeyDataProtectionProvider.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -126,8 +131,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609082340079_Initialize.resx">
-      <DependentUpon>201609082340079_Initialize.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609150112002_Initialization.resx">
+      <DependentUpon>201609150112002_Initialization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Application.Data.Entities
 {
-    public class ExecutionContext
+    public class SequenceState
     {
         [Key]
         public int Id { get; set; }
+
         public int Index { get; set; }
+
         public Sequence Sequence { get; set; }
     }
 }

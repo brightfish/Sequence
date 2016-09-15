@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 
@@ -34,6 +35,18 @@ namespace Application.Web
         {
             _authenticationManager.SignOut();
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [Route("test")]
+        [HttpGet]
+        public IHttpActionResult Result()
+        {
+            HttpResponseMessage message = new HttpResponseMessage();
+
+            message.Headers.AddCookies(new List<CookieHeaderValue>() { new CookieHeaderValue("Test", "Value") { Expires = DateTime.UtcNow.AddDays(-1) } });
+
+            return ResponseMessage(message);
         }
     }
 }

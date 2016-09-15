@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\AccountController.cs" />
+    <Compile Include="Controllers\Api\SequencesController.cs" />
     <Compile Include="Controllers\Api\SessionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="General\GenericEmailService.cs" />
@@ -267,6 +268,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\logo-.5x.png" />
+    <Content Include="Content\images\logo-1x.png" />
+    <Content Include="Content\images\logo-2x.png" />
+    <Content Include="Content\images\logo-32px.png" />
+    <Content Include="Content\images\logo-4x.png" />
+    <Content Include="Content\images\logo-64px.png" />
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -284,10 +291,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular\angular-drag-drop.js" />
+    <Content Include="Scripts\angular\angular-local-storage.js" />
     <Content Include="Scripts\angular\angular-mocks.js" />
     <Content Include="Scripts\angular\angular-ui-router.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular-route.js" />
+    <Content Include="Scripts\angular\angular-ui-bootstrap.js" />
+    <Content Include="Scripts\angular\angular-ui-bootstrap-templates.js" />
     <Content Include="Scripts\application.module.js" />
     <Content Include="Resources\ResetPasswordEmail.cshtml" />
     <Content Include="Scripts\bootstrap.js" />
@@ -296,7 +306,11 @@
     <Content Include="Scripts\controllers\account\settings.controller.js" />
     <Content Include="Scripts\controllers\account\signin.controller.js" />
     <Content Include="Scripts\controllers\account\signout.controller.js" />
+    <Content Include="Scripts\controllers\action.controller.js" />
+    <Content Include="Scripts\controllers\sequence.controller.js" />
+    <Content Include="Scripts\controllers\sequences.controller.js" />
     <Content Include="Scripts\controllers\shared\session.controller.js" />
+    <Content Include="Scripts\directives\selectable.directive.js" />
     <Content Include="Scripts\directives\session.directive.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -314,6 +328,8 @@
     <Content Include="Scripts\providers\intercom.provider.js" />
     <Content Include="Scripts\providers\session.provider.js" />
     <Content Include="Scripts\services\account\account.service.js" />
+    <Content Include="Scripts\services\sequence.service.js" />
+    <Content Include="Scripts\services\sequences.service.js" />
     <Content Include="Scripts\services\shared\session.service.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Templates\Account\ForgotPassword\Email\Default.html" />
@@ -331,12 +347,26 @@
     <Content Include="Templates\Administration\Account\Account.html" />
     <Content Include="Templates\Administration\Account\Tokens.html" />
     <Content Include="Templates\Administration\Administration.html" />
+    <Content Include="Templates\Dashboard\Dashboard.html" />
     <Content Include="Templates\Landing\About.html" />
     <Content Include="Templates\Landing\Contact.html" />
     <Content Include="Templates\Landing\Features.html" />
     <Content Include="Templates\Landing\Home.html" />
     <Content Include="Templates\Layout.html" />
     <Content Include="Templates\Menu.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Actions.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Alert-Add.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Automated-Call.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Decision.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Delay.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Email.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Event.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Input.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Script.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Sequence.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\Skype.html" />
+    <Content Include="Templates\Sequences\Sequence\Actions\SMS-Text.html" />
+    <Content Include="Templates\Sequences\Sequence\Sequence.html" />
     <Content Include="Templates\Session.html" />
     <Content Include="Templates\Session\Extend.html" />
     <Content Include="Web.config" />
@@ -352,13 +382,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Templates\Sequences\Sequences.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\images\" />
     <Folder Include="Providers\" />
-    <Folder Include="Results\" />
     <Folder Include="Scripts\filters\" />
-    <Folder Include="Templates\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

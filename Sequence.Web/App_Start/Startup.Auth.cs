@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Application.Web.Models;
 using Application.Data;
+using Application.Data.Managers;
 
 namespace Application.Web
 {

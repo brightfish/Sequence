@@ -31,3 +31,36 @@ c:\users\chris.nimmons\documents\visual studio 2013\Projects\Sequence.Azure\Sequ
 c:\users\chris.nimmons\documents\visual studio 2013\Projects\Sequence.Azure\Sequence.Data\bin\Debug\Application.Data.pdb
 c:\users\chris.nimmons\documents\visual studio 2013\Projects\Sequence.Azure\Sequence.Data\obj\Debug\Application.Data.dll
 c:\users\chris.nimmons\documents\visual studio 2013\Projects\Sequence.Azure\Sequence.Data\obj\Debug\Application.Data.pdb
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Application.Data.dll.config
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Application.Data.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Application.Data.pdb
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Effort.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\EntityFramework.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Newtonsoft.Json.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\NMemory.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Owin.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Effort.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\EntityFramework.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\Newtonsoft.Json.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\bin\Debug\NMemory.xml
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\obj\Debug\Application.Data.csprojResolveAssemblyReference.cache
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\obj\Debug\Application.Data.dll
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\obj\Debug\Application.Data.pdb
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\obj\Debug\Application.Data.Migrations.Initialization.resources
+C:\Users\chris.nimmons\Desktop\Sequence\Sequence.Data\obj\Debug\Application.Data.csproj.GenerateResource.Cache

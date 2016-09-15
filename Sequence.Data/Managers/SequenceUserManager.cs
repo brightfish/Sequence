@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Data
+namespace Application.Data.Managers
 {
     public class SequenceUserManager : UserManager<SequenceUser, string>
     {
@@ -19,7 +19,7 @@ namespace Application.Data
 
         public static SequenceUserManager Create(IdentityFactoryOptions<SequenceUserManager> options, IOwinContext context)
         {
-            var manager = new SequenceUserManager(new UserStore<SequenceUser>(context.Get<SequenceContext>()));
+            var manager = new SequenceUserManager(new SequenceUserStore(context.Get<SequenceContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<SequenceUser>(manager)
             {
@@ -32,13 +32,11 @@ namespace Application.Data
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
             };
-            var dataProtectionProvider = options.DataProtectionProvider;
+            var dataProtectionProvider = new MachineKeyDataProtectionProvider();
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<SequenceUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<SequenceUser>(dataProtectionProvider.Create("Application"));
             }
             return manager;
         }
